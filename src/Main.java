@@ -11,7 +11,7 @@ public class Main extends JFrame {
         // write your code here
 
         Main main = new Main();
-        main.setTitle("Map Maker ||| '1' - Dark Grass | '2' - Light Grass | 'w' - Wall | 's' - SoftWall");
+        main.setTitle("Map Maker ||| 'Space' - Save | '1' - Dark Grass | '2' - Light Grass | 'w' - Wall | 's' - SoftWall");
         main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JScrollPane scrPane = new JScrollPane(new Frame(main));
         main.add(scrPane);

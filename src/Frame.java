@@ -18,7 +18,6 @@ public class Frame extends JPanel implements MouseListener{
     int w = 13;
     int h = 13;
     char code = 'w';
-    final int RES = 64;
 
     ArrayList<Object> objects = new ArrayList<>();
 
@@ -29,14 +28,14 @@ public class Frame extends JPanel implements MouseListener{
 
             switch (e.getKeyCode()){
                 case KeyEvent.VK_RIGHT:
-                    setPreferredSize(new Dimension(64*++w, 64*h));
+                    setPreferredSize(new Dimension(Main.RES*++w, Main.RES*h));
                     revalidate();
                     repaint();
                     break;
                 case KeyEvent.VK_LEFT:
                     for(Object object : objects)
                         object.x += Main.RES;
-                    setPreferredSize(new Dimension(64*w, 64*++h));
+                    setPreferredSize(new Dimension(Main.RES*w, Main.RES*++h));
                     revalidate();
                     repaint();
                     break;
@@ -150,7 +149,7 @@ public class Frame extends JPanel implements MouseListener{
 
         for(Object object : objects)
         {
-            string += object.x/RES + "," + object.y/RES + "," + object.code + "/";
+            string += object.x/Main.RES + "," + object.y/Main.RES + "," + object.code + "/";
         }
 
         try(PrintWriter out = new PrintWriter("filename.txt" )){
