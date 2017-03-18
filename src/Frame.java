@@ -4,6 +4,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +18,7 @@ public class Frame extends JPanel implements MouseListener{
     int w = 13;
     int h = 13;
     char code = 'w';
+    final int RES = 64;
 
     ArrayList<Object> objects = new ArrayList<>();
 
@@ -60,6 +63,9 @@ public class Frame extends JPanel implements MouseListener{
                     break;
                 case KeyEvent.VK_S:
                     code = 's';
+                    break;
+                case KeyEvent.VK_SPACE:
+                    save();
                     break;
             }
         }
@@ -133,5 +139,24 @@ public class Frame extends JPanel implements MouseListener{
         for(Object object : objects)
             object.draw(g2d);
 
+    }
+
+    private void save(){
+
+        String string = "";
+
+        string += w + "/";
+        string += h + "/";
+
+        for(Object object : objects)
+        {
+            string += object.x/RES + "," + object.y/RES + "," + object.code + "/";
+        }
+
+        try(PrintWriter out = new PrintWriter("filename.txt" )){
+            out.println(string);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
