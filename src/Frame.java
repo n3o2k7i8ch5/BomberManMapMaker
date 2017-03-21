@@ -15,8 +15,8 @@ public class Frame extends JPanel implements MouseListener{
 
     Main main;
 
-    int w = 13;
-    int h = 13;
+    int w = 20;
+    int h = 20;
     char code = 'w';
 
     ArrayList<Object> objects = new ArrayList<>();
@@ -74,7 +74,8 @@ public class Frame extends JPanel implements MouseListener{
         this.main = main;
         setFocusable(true);
         setPreferredSize(new Dimension(64*w, 64*h));
-
+        prepareGrass();
+        prepareHardWalls();
         addMouseListener(this);
         addKeyListener(keyAdapter);
     }
@@ -142,14 +143,15 @@ public class Frame extends JPanel implements MouseListener{
 
     private void save(){
 
+        String split = "!";
         String string = "";
 
-        string += w + "/";
-        string += h + "/";
+        string += w + split;
+        string += h + split;
 
         for(Object object : objects)
         {
-            string += object.x/Main.RES + "," + object.y/Main.RES + "," + object.code + "/";
+            string += object.x/Main.RES + "," + object.y/Main.RES + "," + object.code + split;
         }
 
         try(PrintWriter out = new PrintWriter("filename.txt" )){
@@ -157,5 +159,35 @@ public class Frame extends JPanel implements MouseListener{
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    private void addgrass(int x,int y)
+    {
+        Object object = new Object(x,y,'1');
+        objects.add(object);
+    }
+
+    private void addgrass_light(int x,int y)
+    {
+        Object object = new Object(x,y,'2');
+        objects.add(object);
+    }
+
+    private void prepareGrass()
+    {
+        for(int i = 0; i<w;i++)
+            for(int j=0 ;j<h;j++)
+                if((i+j)%2==0)
+                    addgrass(i*Main.RES,j*Main.RES);
+                else
+                    addgrass_light(i*Main.RES,j*Main.RES);
+
+    }
+
+    private void prepareHardWalls(){
+        for(int i=0;i<w;i++)
+            for(int j=0;j<h;j++)
+                if(i%2==0 && j%2==0)
+                    objects.add(new Object(i*Main.RES,j*Main.RES,'w'));
     }
 }

@@ -19,5 +19,6 @@ public class Main extends JFrame {
         main.setLocationRelativeTo(null);
         main.setVisible(true);
 
+        
     }
 }
